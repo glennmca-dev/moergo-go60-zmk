@@ -175,6 +175,7 @@
 #define LAYER_Keypad 2
 #define LAYER_Symbol 3
 #define LAYER_Magic 4
+#define LAYER_RClick 5
 
 /* To deal with the situation where there is no Lower layer, to keep &lower happy */
 #ifndef LAYER_Lower
@@ -210,6 +211,11 @@
 
 /* Input Listeners */
 &cirque_rh_listener {
+    input-processors = <&zip_xy_scaler 2 1>;
+    layers = <LAYER_Nav LAYER_RClick>;
+    layer-input-processors
+        = <&zip_xy_scaler 4 1>                                    /* LAYER_Nav (1): 4× speed */
+        , <&zip_xy_scaler 2 1 &zip_click_to_right_click_mapper>;  /* LAYER_RClick (5): 2× + right-click */
 };
 
 &cirque_lh_listener {
@@ -396,7 +402,7 @@
               &kp ESC               &mt LGUI A  &mt LALT R  &mt LCTRL S  &mt LSHFT T   &kp G                                                                                                &kp M  &mt LSHFT N  &mt LCTRL E  &mt LALT I    &mt RGUI O          &kp SQT
  &magic LAYER_Magic 0  &mt LC(LA(LG(LSHFT))) Z       &kp X        &kp C        &kp D   &kp V                                                                                                &kp K        &kp H    &kp COMMA     &kp DOT      &kp FSLH  &rgb_ug RGB_TOG
                                                  &kp GRAVE        &none        &none                                                                                                                  &kp LGUI     &kp LBKT    &kp RBKT
-                                                                                              &lt LAYER_Nav ESC  &lt LAYER_Keypad SPACE  &lt LAYER_Symbol TAB  &kp RET  &kp BSPC  &kp DEL
+                                                                                              &lt LAYER_Nav ESC  &lt LAYER_Keypad SPACE  &lt LAYER_Symbol TAB  &kp RET  &lt LAYER_RClick BSPC  &kp DEL
             >;
         };
 
@@ -441,6 +447,17 @@
        &none            &none            &bt_0            &bt_1            &bt_2            &bt_3                                                       &none         &none         &none   &none   &none      &studio_unlock
                                   &out OUT_USB            &none            &none                                                                                      &none         &none   &none
                                                                                                     &none   &none   &none   &none   &none   &none
+            >;
+        };
+
+        layer_RClick {
+            bindings = <
+ &trans  &trans  &trans  &trans  &trans  &trans                                  &trans  &trans  &trans  &trans  &trans  &trans
+ &trans  &trans  &trans  &trans  &trans  &trans                                  &trans  &trans  &trans  &trans  &trans  &trans
+ &trans  &trans  &trans  &trans  &trans  &trans                                  &trans  &trans  &trans  &trans  &trans  &trans
+ &trans  &trans  &trans  &trans  &trans  &trans                                  &trans  &trans  &trans  &trans  &trans  &trans
+                 &trans  &trans  &trans                                                  &trans  &trans  &trans
+                                                 &trans  &trans  &trans  &trans  &trans  &trans
             >;
         };
 
